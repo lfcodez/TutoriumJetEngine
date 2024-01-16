@@ -4,9 +4,7 @@ import dhbw.mosbach.builder.turbine.HighPressureTurbine;
 import dhbw.mosbach.builder.turbine.ITurbine;
 import dhbw.mosbach.observer.chamber.CombustionChamber;
 import dhbw.mosbach.observer.chamber.ICombustionChamber;
-import dhbw.mosbach.serviceTeam.TeamMember;
 import dhbw.mosbach.serviceTeam.Technician;
-import dhbw.mosbach.visitor.IEnginePart;
 import dhbw.mosbach.visitor.ITechnician;
 import org.junit.jupiter.api.Test;
 

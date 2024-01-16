@@ -1,7 +1,5 @@
 package dhbw.mosbach.memento;
 
-import dhbw.mosbach.builder.configuration.ParameterConfiguration;
-
 public class MementoCareTaker {
     ParameterConfigurationMemento parameterConfigurationMemento;
 

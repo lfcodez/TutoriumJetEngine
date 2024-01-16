@@ -19,8 +19,6 @@ import dhbw.mosbach.builder.turbine.LowPressureTurbine;
 import dhbw.mosbach.command.*;
 import dhbw.mosbach.proxy.Proxy;
 
-import java.util.HashMap;
-
 public class Main {
 
     public static void main(String[] args) {

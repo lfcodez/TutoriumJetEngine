@@ -1,9 +1,6 @@
 package dhbw.mosbach.command;
 
-import dhbw.mosbach.CentralUnit;
-import dhbw.mosbach.ServiceCenter;
 import dhbw.mosbach.builder.JetEngine;
-import dhbw.mosbach.decorator.LogStringDecorator;
 import dhbw.mosbach.decorator.StringDecorator;
 
 public class StartCommand implements ICommand {

@@ -8,8 +8,6 @@ import dhbw.mosbach.cryptography.aes.AES;
 import dhbw.mosbach.cryptography.aes.Configuration;
 import dhbw.mosbach.cryptography.sha.SHA;
 
-import java.security.Provider;
-
 public class LogStringDecorator extends StringDecorator {
     private IHash hashing;
 

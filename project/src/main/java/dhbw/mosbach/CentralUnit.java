@@ -4,9 +4,6 @@ import dhbw.mosbach.builder.JetEngine;
 import dhbw.mosbach.command.EmergencyShutDownCommand;
 import dhbw.mosbach.command.ICommand;
 import dhbw.mosbach.observer.IOverheatListener;
-import dhbw.mosbach.observer.Sensor;
-
-import java.util.Map;
 
 public class CentralUnit implements IOverheatListener {
 

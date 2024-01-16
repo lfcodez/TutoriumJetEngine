@@ -7,7 +7,6 @@ import dhbw.mosbach.builder.shaft.HighPressureDriveShaft;
 import dhbw.mosbach.builder.shaft.LowPressureDriveShaft;
 import dhbw.mosbach.builder.telemetry.Telemetry;
 import dhbw.mosbach.builder.telemetry.sixpin.SixPinConnector;
-import dhbw.mosbach.observer.chamber.ICombustionChamber;
 import dhbw.mosbach.visitor.IEnginePart;
 
 import java.io.File;

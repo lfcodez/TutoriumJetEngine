@@ -2,7 +2,6 @@ package dhbw.mosbach;
 
 import dhbw.mosbach.builder.JetEngine;
 import dhbw.mosbach.cryptography.Context;
-import dhbw.mosbach.cryptography.IAlgorithm;
 import dhbw.mosbach.cryptography.aes.AES;
 import dhbw.mosbach.cryptography.aes.Configuration;
 import dhbw.mosbach.serviceTeam.STTrent1000;

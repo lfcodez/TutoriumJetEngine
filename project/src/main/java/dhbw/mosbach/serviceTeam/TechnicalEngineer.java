@@ -4,8 +4,6 @@ import dhbw.mosbach.builder.JetEngine;
 import dhbw.mosbach.builder.configuration.ParameterP1Enums;
 import dhbw.mosbach.proxy.Proxy;
 
-import java.util.Arrays;
-
 public class TechnicalEngineer extends TeamMember {
     @Override
     public void doAction(String s, JetEngine jetEngine) {

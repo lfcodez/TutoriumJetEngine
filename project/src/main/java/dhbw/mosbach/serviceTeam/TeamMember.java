@@ -1,7 +1,6 @@
 package dhbw.mosbach.serviceTeam;
 
 import dhbw.mosbach.builder.JetEngine;
-import dhbw.mosbach.proxy.IConfigurationRO;
 
 import java.util.ArrayList;
 import java.util.List;

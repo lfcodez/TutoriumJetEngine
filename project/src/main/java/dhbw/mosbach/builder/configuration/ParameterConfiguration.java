@@ -14,7 +14,7 @@ public class ParameterConfiguration implements IConfigurationRW134 {
     private MementoCareTaker mementoCareTaker;
 
 
-    private ParameterConfiguration(Builder builder) {
+    public ParameterConfiguration(Builder builder) {
         this.p1 = builder.p1;
         this.p2 = builder.p2;
         this.p3 = builder.p3;
@@ -61,20 +61,20 @@ public class ParameterConfiguration implements IConfigurationRW134 {
 
     @Override
     public void setP1(ParameterP1Enums parameterP1Enums) {
-        p1 = parameterP1Enums;
         save();
+        p1 = parameterP1Enums;
     }
 
     @Override
     public void setP3(Boolean b) {
-        p3 = b;
         save();
+        p3 = b;
     }
 
     @Override
     public void setP4(ParameterP4Enums parameterP4Enums) {
-        p4 = parameterP4Enums;
         save();
+        p4 = parameterP4Enums;
     }
 
 
@@ -119,7 +119,7 @@ public class ParameterConfiguration implements IConfigurationRW134 {
         this.mementoCareTaker.setParameterConfigurationMemento(new ParameterConfigurationMemento(p1,p2,p3,p4,p5));
     }
 
-    private void undo(){
+    public void undo(){
         ParameterConfigurationMemento p = this.mementoCareTaker.getParameterConfigurationMemento();
         p1 = p.getP1();
         p2 = p.getP2();
