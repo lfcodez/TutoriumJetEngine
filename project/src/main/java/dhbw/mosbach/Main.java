@@ -3,6 +3,7 @@ package dhbw.mosbach;
 import dhbw.mosbach.builder.JetEngine;
 import dhbw.mosbach.builder.Manufacturer;
 import dhbw.mosbach.builder.Model;
+import dhbw.mosbach.decorator.LogStringDecorator;
 import dhbw.mosbach.observer.chamber.CombustionChamber;
 import dhbw.mosbach.builder.compressor.HighPressureCompressor;
 import dhbw.mosbach.builder.compressor.LowPressureCompressor;
@@ -16,12 +17,14 @@ import dhbw.mosbach.builder.telemetry.sixpin.SixPinConnector;
 import dhbw.mosbach.builder.turbine.HighPressureTurbine;
 import dhbw.mosbach.builder.turbine.LowPressureTurbine;
 import dhbw.mosbach.command.*;
+import dhbw.mosbach.proxy.Proxy;
 
 import java.util.HashMap;
 
 public class Main {
 
     public static void main(String[] args) {
+        // create CentralUnit
         CentralUnit centralUnit = new CentralUnit();
 
         LowPressureDriveShaft lowPressureDriveShaft = new LowPressureDriveShaft.Builder()
@@ -52,6 +55,8 @@ public class Main {
                 .p5(800)
                 .build();
 
+        Proxy.INSTANCE.setParameterConfiguration(configuration);
+
         CombustionChamber[] combustionChambers = new CombustionChamber[2];
         CombustionChamber combustionChamber1 = new CombustionChamber();
         combustionChamber1.getSensor().addListener(centralUnit);
@@ -74,32 +79,39 @@ public class Main {
                 .currentRPM(0)
                 .sixPinConnector(new SixPinConnector())
                 .build();
-
         System.out.println(jetEngine.toString());
 
-        // Functions
+        centralUnit.setJetEngine(jetEngine);
 
-        //Command-Pattern
-        ICommand commandStart = new StartCommand(jetEngine);
-        ICommand commandSetSpeed = new SetSpeedCommand(jetEngine, 320);
-        ICommand commandShutDown = new ShutDownCommand(jetEngine);
-        ICommand commandEmergency = new EmergencyShutDownCommand(jetEngine);
 
-        // TODO Workaround das CentralUnit JetEngine nicht kennt und Commandos gesetzt werden
-        // Müssen wir noch überarbeiten prbly
-        // hardcoded shit
-        HashMap<String,ICommand> commandos = new HashMap<>();
-        commandos.put("start", commandStart);
-        commandos.put("setSpeed", commandSetSpeed);
-        commandos.put("shutDown", commandShutDown);
-        commandos.put("emergency", commandEmergency);
 
-        centralUnit.setCommandos(commandos);
-
-        centralUnit.setCommand("start");
+        ServiceCenter serviceCenter = new ServiceCenter(jetEngine);
+        // Scenario 1
+        centralUnit.setCommand(new StartCommand(jetEngine, new LogStringDecorator(serviceCenter), "start"));
+        centralUnit.execute();
+        // Scenario 2
+        /*
+        Szenario 02:
+            [01] JetEngine wird über das Kommando Start von der CentralUnit gestartet.
+            [02] JetEngine wird über das Kommando SetSpeed auf 683 gesetzt.
+            [03] Temperatur im CombustionChamber wird auf 850 gesetzt.
+            [04] CentralUnit wird automatisch benachrichtigt und veranlasst EmergencyShutdown.
+            [05] Bei Aufruf der Methode start wird eine verschlüsselte Meldung send(encrypt(record(hash(log("engine | emergency shutdown"))))) an das ServiceCenter kommuniziert.
+            [06] ServiceCenter empfängt die verschlüsselte Meldung und entschlüsselt diese zwecks Weiterleitung an die CoR.
+            [07] Die entschlüsselte Meldung wird über CoR zu dem verantwortlichen Team geleitet und vom Supervisor angenommen.
+            [08] Über einen geeigneten Mechanismus wird die Meldung zu einem zufällig ausgewählten TechnicalEngineer im Team EmergencyTeamManager weitergeleitet.
+            [09] Jeweils von einem spezialisierten Techniker werden Compressor, Turbine und CombustionChamber geprüft.
+                 Die Durchführung der Prüfung wird vereinfacht als einfache Meldung am Bildschirm angezeigt.
+            [10] TechnicalEngineer möchte den Parameter p1 verändern und wird abgewiesen.
+            [11] EmergencyTeamManager importiert für die Parameter p1 und p3 eine inkorrekte Parameterkonfiguration und führt ein undo durch.
+         */
+        centralUnit.setCommand(new SetSpeedCommand(jetEngine, 683));
         centralUnit.execute();
 
-        centralUnit.setCommand("setSpeed");
+        centralUnit.setCommand(new StartCommand(jetEngine, new LogStringDecorator(serviceCenter), "emergency shutdown"));
         centralUnit.execute();
+
+
+
     }
 }

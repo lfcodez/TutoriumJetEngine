@@ -7,6 +7,14 @@ public class HighPressureDriveShaft {
     private final HighPressureCompressor[] compressors;
     private final HighPressureTurbine[] turbines;
 
+    public HighPressureCompressor[] getCompressors() {
+        return compressors;
+    }
+
+    public HighPressureTurbine[] getTurbines() {
+        return turbines;
+    }
+
     private HighPressureDriveShaft(Builder builder) {
         this.compressors = builder.compressors;
         this.turbines = builder.turbines;

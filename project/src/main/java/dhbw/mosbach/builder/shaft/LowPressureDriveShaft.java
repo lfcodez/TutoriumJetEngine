@@ -53,6 +53,14 @@ public class LowPressureDriveShaft {
         return stringBuilder.toString();
     }
 
+    public LowPressureCompressor[] getCompressors() {
+        return compressors;
+    }
+
+    public LowPressureTurbine[] getTurbines() {
+        return turbines;
+    }
+
     public static class Builder {
         private Fan[] fans = new Fan[2];
         private LowPressureCompressor[] compressors = new LowPressureCompressor[2];

@@ -1,5 +1,7 @@
 package dhbw.mosbach;
 
+import dhbw.mosbach.builder.JetEngine;
+import dhbw.mosbach.command.EmergencyShutDownCommand;
 import dhbw.mosbach.command.ICommand;
 import dhbw.mosbach.observer.IOverheatListener;
 import dhbw.mosbach.observer.Sensor;
@@ -8,24 +10,32 @@ import java.util.Map;
 
 public class CentralUnit implements IOverheatListener {
 
-    Map<String, ICommand> commandos;
     private ICommand command;
 
-    public void setCommandos(Map<String, ICommand> commandos) {
-        this.commandos = commandos;
+    private JetEngine jetEngine;
+
+    private ServiceCenter serviceCenter;
+
+    public void setServiceCenter(ServiceCenter serviceCenter) {
+        this.serviceCenter = serviceCenter;
     }
 
-    public void setCommand(String command) {
-        this.command = commandos.get(command);
+    public void setJetEngine(JetEngine jetEngine) {
+        this.jetEngine = jetEngine;
+        this.serviceCenter = new ServiceCenter(jetEngine);
     }
 
-    public void execute(){
+    public void setCommand(ICommand command) {
+        this.command = command;
+    }
+
+    public void execute() {
         command.execute();
     }
 
     @Override
     public void overheated() {
-        setCommand("emergency");
+        setCommand(new EmergencyShutDownCommand(this.jetEngine));
         execute();
     }
 }

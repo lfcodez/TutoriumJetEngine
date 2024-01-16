@@ -1,7 +1,8 @@
 package dhbw.mosbach.observer.chamber;
 import dhbw.mosbach.observer.Sensor;
+import dhbw.mosbach.visitor.ITechnician;
 
-public class CombustionChamber {
+public class CombustionChamber implements ICombustionChamber {
     private double temperature;
     private final Sensor sensor;
 
@@ -23,5 +24,14 @@ public class CombustionChamber {
 
     public String toString() {
         return "{ CombustionChamber : temperature = " + temperature + " }";
+    }
+
+    @Override
+    public void accept(ITechnician techniker) {
+        techniker.visit(this);
+    }
+
+    public double getTemperature() {
+        return temperature;
     }
 }

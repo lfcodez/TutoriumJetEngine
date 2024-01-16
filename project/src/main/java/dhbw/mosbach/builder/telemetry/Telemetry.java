@@ -2,7 +2,7 @@ package dhbw.mosbach.builder.telemetry;
 
 import java.security.SecureRandom;
 
-public class Telemetry {
+public class Telemetry extends ATelemetry {
     private double[] data;
 
     public Telemetry() {

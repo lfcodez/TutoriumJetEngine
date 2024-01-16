@@ -7,20 +7,39 @@ import dhbw.mosbach.builder.shaft.HighPressureDriveShaft;
 import dhbw.mosbach.builder.shaft.LowPressureDriveShaft;
 import dhbw.mosbach.builder.telemetry.Telemetry;
 import dhbw.mosbach.builder.telemetry.sixpin.SixPinConnector;
+import dhbw.mosbach.observer.chamber.ICombustionChamber;
+import dhbw.mosbach.visitor.IEnginePart;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
 public class JetEngine {
     private Manufacturer manufacturer;
     private Model model;
     private String serialNumber;
+
+    public int getCurrentRPM() {
+        return currentRPM;
+    }
+
+    public boolean isStarted() {
+        return isStarted;
+    }
+
     private ParameterConfiguration configuration;
     private LowPressureDriveShaft lowPressureDriveShaft;
     private HighPressureDriveShaft highPressureDriveShaft;
     private CombustionChamber[] combustionChambers;
     private boolean isStarted;
     private int currentRPM;
+
+    public Model getModel() {
+        return model;
+    }
+
     private SixPinConnector sixPinConnector;
 
     private JetEngine(Builder builder) {
@@ -58,6 +77,7 @@ public class JetEngine {
         if (!isStarted) {
             System.out.println("Start!");
             isStarted = true;
+
         } else{
             System.out.println("Already started!");
         }
@@ -65,9 +85,8 @@ public class JetEngine {
 
     public void setSpeed(int speedMPH) {
         System.out.println("Speed set to: "+ speedMPH + " MPH!");
-        currentRPM = speedMPH * 15;
-        combustionChambers[0].setTemperature(currentRPM * 1.15);
-        combustionChambers[1].setTemperature(currentRPM * 1.15);
+        combustionChambers[0].setTemperature(speedMPH * 1.25);
+        combustionChambers[1].setTemperature(speedMPH * 1.25);
     }
 
     public void shutdown() {
@@ -103,6 +122,19 @@ public class JetEngine {
                 .append(" }");
 
         return stringBuilder.toString();
+    }
+
+    public List<IEnginePart> getParts() {
+        List<IEnginePart> list = new ArrayList<>();
+
+        Collections.addAll(list, combustionChambers);
+        Collections.addAll(list, lowPressureDriveShaft.getCompressors());
+        Collections.addAll(list, lowPressureDriveShaft.getTurbines());
+        Collections.addAll(list, highPressureDriveShaft.getCompressors());
+        Collections.addAll(list, highPressureDriveShaft.getTurbines());
+
+
+        return list;
     }
 
     public static class Builder {
