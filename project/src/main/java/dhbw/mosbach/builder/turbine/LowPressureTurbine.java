@@ -12,7 +12,6 @@ public class LowPressureTurbine implements  ITurbine{
             blades[i] = new SShapedBlade(11);
         }
     }
-
     @Override
     public void accept(ITechnician techniker) {
         techniker.visit(this);

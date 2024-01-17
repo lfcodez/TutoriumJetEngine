@@ -1,5 +1,6 @@
 import dhbw.mosbach.CentralUnit;
 import dhbw.mosbach.ServiceCenter;
+import dhbw.mosbach.adapter.SixPinConnector;
 import dhbw.mosbach.builder.JetEngine;
 import dhbw.mosbach.builder.Manufacturer;
 import dhbw.mosbach.builder.Model;
@@ -11,7 +12,6 @@ import dhbw.mosbach.builder.configuration.ParameterP4Enums;
 import dhbw.mosbach.builder.fan.Fan;
 import dhbw.mosbach.builder.shaft.HighPressureDriveShaft;
 import dhbw.mosbach.builder.shaft.LowPressureDriveShaft;
-import dhbw.mosbach.builder.telemetry.sixpin.SixPinConnector;
 import dhbw.mosbach.builder.turbine.HighPressureTurbine;
 import dhbw.mosbach.builder.turbine.LowPressureTurbine;
 import dhbw.mosbach.observer.chamber.CombustionChamber;

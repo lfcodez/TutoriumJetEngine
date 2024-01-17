@@ -55,8 +55,7 @@ public class ParameterConfiguration implements IConfigurationRW134 {
 
     @Override
     public String readAttributes() {
-        String s = p1.toString() + ";\n" + p2 + ";\n" +  p3 + ";\n" +  p4.toString() + ";\n" + p5 + ";\n";
-        return s;
+        return p1.toString() + ";\n" + p2 + ";\n" +  p3 + ";\n" +  p4.toString() + ";\n" + p5 + ";\n";
     }
 
     @Override
@@ -120,11 +119,11 @@ public class ParameterConfiguration implements IConfigurationRW134 {
     }
 
     public void undo(){
-        ParameterConfigurationMemento p = this.mementoCareTaker.getParameterConfigurationMemento();
-        p1 = p.getP1();
-        p2 = p.getP2();
-        p3 = p.isP3();
-        p4 = p.getP4();
-        p5 = p.getP5();
+        ParameterConfigurationMemento memento = this.mementoCareTaker.getParameterConfigurationMemento();
+        p1 = memento.getP1();
+        p2 = memento.getP2();
+        p3 = memento.isP3();
+        p4 = memento.getP4();
+        p5 = memento.getP5();
     }
 }

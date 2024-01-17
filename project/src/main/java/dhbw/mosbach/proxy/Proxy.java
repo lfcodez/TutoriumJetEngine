@@ -3,7 +3,7 @@ package dhbw.mosbach.proxy;
 import dhbw.mosbach.builder.configuration.ParameterConfiguration;
 import dhbw.mosbach.builder.configuration.ParameterP1Enums;
 import dhbw.mosbach.builder.configuration.ParameterP4Enums;
-import dhbw.mosbach.serviceTeam.*;
+import dhbw.mosbach.serviceteam.*;
 
 
 public enum Proxy {

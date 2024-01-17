@@ -4,10 +4,10 @@ import dhbw.mosbach.builder.JetEngine;
 import dhbw.mosbach.cryptography.Context;
 import dhbw.mosbach.cryptography.aes.AES;
 import dhbw.mosbach.cryptography.aes.Configuration;
-import dhbw.mosbach.serviceTeam.STTrent1000;
-import dhbw.mosbach.serviceTeam.STTrent900;
-import dhbw.mosbach.serviceTeam.STTrentXWB;
-import dhbw.mosbach.serviceTeam.ServiceTeam;
+import dhbw.mosbach.serviceteam.STTrent1000;
+import dhbw.mosbach.serviceteam.STTrent900;
+import dhbw.mosbach.serviceteam.STTrentXWB;
+import dhbw.mosbach.serviceteam.ServiceTeam;
 
 public class ServiceCenter {
     private ServiceTeam serviceTeam;

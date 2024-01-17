@@ -1,11 +1,8 @@
-package dhbw.mosbach;
-
+import dhbw.mosbach.CentralUnit;
 import dhbw.mosbach.adapter.SixPinConnector;
 import dhbw.mosbach.builder.JetEngine;
 import dhbw.mosbach.builder.Manufacturer;
 import dhbw.mosbach.builder.Model;
-import dhbw.mosbach.decorator.LogStringDecorator;
-import dhbw.mosbach.observer.chamber.CombustionChamber;
 import dhbw.mosbach.builder.compressor.HighPressureCompressor;
 import dhbw.mosbach.builder.compressor.LowPressureCompressor;
 import dhbw.mosbach.builder.configuration.ParameterConfiguration;
@@ -16,12 +13,19 @@ import dhbw.mosbach.builder.shaft.HighPressureDriveShaft;
 import dhbw.mosbach.builder.shaft.LowPressureDriveShaft;
 import dhbw.mosbach.builder.turbine.HighPressureTurbine;
 import dhbw.mosbach.builder.turbine.LowPressureTurbine;
-import dhbw.mosbach.command.*;
+import dhbw.mosbach.observer.chamber.CombustionChamber;
 import dhbw.mosbach.proxy.Proxy;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
 
-public class Main {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-    public static void main(String[] args) {
+public class TestBuilder {
+
+    @Order(1)
+    @Test
+    public void testBuildRight(){
         CentralUnit centralUnit = new CentralUnit();
 
         LowPressureDriveShaft lowPressureDriveShaft = new LowPressureDriveShaft.Builder()
@@ -64,6 +68,7 @@ public class Main {
         combustionChambers[1] = combustionChamber2;
 
 
+
         JetEngine jetEngine = new JetEngine.Builder()
                 .manufacturer(Manufacturer.GeneralElectric)
                 .model(Model.Trent900)
@@ -75,18 +80,12 @@ public class Main {
                 .currentRPM(0)
                 .sixPinConnector(new SixPinConnector())
                 .build();
+        System.out.println(jetEngine.toString());
 
-        centralUnit.setJetEngine(jetEngine);
-        ServiceCenter serviceCenter = new ServiceCenter(jetEngine);
-
-        // Scenario 1
-        centralUnit.setCommand(new StartCommand(jetEngine, new LogStringDecorator(serviceCenter), "start"));
-        centralUnit.execute();
-
-        // Scenario 2
-        centralUnit.setCommand(new SetSpeedCommand(jetEngine, 683));
-        centralUnit.execute();
-        centralUnit.setCommand(new StartCommand(jetEngine, new LogStringDecorator(serviceCenter), "emergency shutdown"));
-        centralUnit.execute();
+        assertNotNull(jetEngine);
+        assertEquals(14, jetEngine.getParts().size());
+        assertEquals(Model.Trent900,jetEngine.getModel());
     }
+
+
 }

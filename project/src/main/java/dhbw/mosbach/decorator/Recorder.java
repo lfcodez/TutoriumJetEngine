@@ -11,7 +11,7 @@ public enum Recorder {
 
     private Stack<String> stack = new Stack<>();
 
-    public void store(String s){
-        this.stack.push(s);
+    public void store(String message){
+        this.stack.push(message);
     }
 }

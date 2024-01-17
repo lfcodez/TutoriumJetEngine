@@ -22,31 +22,31 @@ public class LogStringDecorator extends StringDecorator {
     }
 
     @Override
-    public String log(String s) {
-        return System.currentTimeMillis() + " | " + s;
+    public String log(String message) {
+        return System.currentTimeMillis() + " | " + message;
     }
 
     @Override
-    public String hash(String s) {
-        return s + " | " + hashing.hash(s, HashConfig.INSTANCE.getKey());
+    public String hash(String message) {
+        return message + " | " + hashing.hash(message, HashConfig.INSTANCE.getKey());
     }
 
     @Override
-    public String record(String s) {
+    public String record(String message) {
 
-        Recorder.INSTANCE.store(s);
+        Recorder.INSTANCE.store(message);
 
-        return s;
+        return message;
     }
 
     @Override
-    public String encrypt(String s) {
-        return crypt.encrypt(s, Configuration.INSTANCE.secretKey);
+    public String encrypt(String message) {
+        return crypt.encrypt(message, Configuration.INSTANCE.secretKey);
     }
 
     @Override
-    public String send(String s) {
-        serviceCenter.receive(s);
-        return s;
+    public String send(String message) {
+        serviceCenter.receive(message);
+        return message;
     }
 }
